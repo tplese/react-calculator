@@ -1,0 +1,42 @@
+button {
+  height: 4rem;
+  width: 10vw;
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  height: 4rem;
+  width: 40vw;
+  margin: 0;
+  padding: 0;
+}
+
+#expression {
+  height: 6rem;
+}
+
+.operands {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  background-color: #666;
+  
+  text-align: right;
+}
+
+#operandRemembered {
+  height: 2rem;
+  color: #ccc;
+}
+
+#operandShown {
+  height: 4rem;
+  font-size: 2.5rem;
+  color: white;
+}
+
+#hidden {
+  color: #666;
+}
