@@ -14,11 +14,13 @@ class Application extends Component {
   }
 
   componentDidUpdate(props, state) {
+    // Pushes first operand into memory so you can write second operand
     if (this.state.operandToggle && this.state.operandToggle !== state.operandToggle) {
       this.setState({operandRemembered: this.state.operandShown});
     };
   }
 
+  // Writing new operand into the main field
   pushOperand(operand) {
     if (this.state.operandShown === '0' && !this.state.operandToggle) {
       this.setState({operandShown: operand});
@@ -29,6 +31,7 @@ class Application extends Component {
     };
   }
 
+  // Sets operator (+, -, *, /) for the operation
   pushOperator(operator) {
     if (this.state.operator === '=') {
       this.setState({operator: operator, operandToggle: true});
@@ -40,6 +43,7 @@ class Application extends Component {
     };
   }
 
+  // When +, ', *, / or = are pushed
   executeEquation() {
     if (this.state.operator === '+') {
       this.setState({operandShown: ((+this.state.operandRemembered) + (+this.state.operandShown)) + ''});
@@ -64,6 +68,7 @@ class Application extends Component {
     this.setState({operandToggle: true});
   }
 
+  // Resets calculator to starting state when C pushed
   resetExpression() {
     this.setState({
       operandShown: '0',
@@ -73,10 +78,12 @@ class Application extends Component {
     });
   }
 
+  // Deletes last operand when CE is pushed
   lastOperandDelete() {
     this.setState({operandShown: '0'});
   }
   
+  // Deletes digits one by one when DEL is pushed
   lastDigitDelete() {
     if ((this.state.operandShown.length === 2 && this.state.operandShown.startsWith('-')) || this.state.operandShown.length === 1) {
       this.setState({operandShown: '0'});
@@ -85,6 +92,7 @@ class Application extends Component {
     };
   }
 
+  // Imediately performed operations on the operand in main field
   pushOperation(operation) {
     if (operation === '1/x') {
       if (this.state.operandShown === '0') {
@@ -107,6 +115,7 @@ class Application extends Component {
     };
   }
 
+  // Sets operand in main field to positive/negative
   togglePositiveNegative() { 
     if (this.state.operandShown.startsWith('-') && this.state.operandShown !== '0') {
       this.setState({operandShown: this.state.operandShown.slice(1), operandToggle: false});
