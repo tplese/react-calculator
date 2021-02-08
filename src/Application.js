@@ -31,8 +31,7 @@ class Application extends Component {
 
   pushOperator(operator) {
     if (this.state.operator === '=') {
-      this.setState({operator: operator});
-      this.setState({operandToggle: true});
+      this.setState({operator: operator, operandToggle: true});
     } else if (this.state.operator !== '=' && this.state.operandToggle) {
       this.setState({operator: operator});
     } else if (this.state.operator !== '=' && !this.state.operandToggle) {
@@ -43,22 +42,22 @@ class Application extends Component {
 
   executeEquation() {
     if (this.state.operator === '+') {
-      this.setState({operandShown: (+this.state.operandRemembered) + (+this.state.operandShown)});
+      this.setState({operandShown: ((+this.state.operandRemembered) + (+this.state.operandShown)) + ''});
     };
 
     if (this.state.operator === '-') {
-      this.setState({operandShown: (+this.state.operandRemembered) - (+this.state.operandShown)});
+      this.setState({operandShown: ((+this.state.operandRemembered) - (+this.state.operandShown)) + ''});
     };
 
     if (this.state.operator === '*') {
-      this.setState({operandShown: (+this.state.operandRemembered) * (+this.state.operandShown)});
+      this.setState({operandShown: ((+this.state.operandRemembered) * (+this.state.operandShown)) + ''});
     };
 
     if (this.state.operator === '/') {
       if (this.state.operandShown === '0') {
         this.setState({operandShown: '0'});  
       } else {
-        this.setState({operandShown: (+this.state.operandRemembered) / (+this.state.operandShown)});
+        this.setState({operandShown: ((+this.state.operandRemembered) / (+this.state.operandShown)) + ''});
       }
     };
 
@@ -88,30 +87,31 @@ class Application extends Component {
 
   pushOperation(operation) {
     if (operation === '1/x') {
-      this.setState({operandShown: 1 / +this.state.operandShown});
+      if (this.state.operandShown === '0') {
+        this.setState({operandShown: '0'});
+      } else {
+        this.setState({operandShown: (1 / (+this.state.operandShown)) + ''});
+      };
     } else if (operation === 'x^2') {
-      this.setState({operandShown: +this.state.operandShown * +this.state.operandShown});
+      this.setState({operandShown: ((+this.state.operandShown) * (+this.state.operandShown)) + ''});
     } else if (operation === 'sqrt') {
-      this.setState({operandShown: Math.sqrt(this.state.operandShown)});
+      this.setState({operandShown: (Math.sqrt(this.state.operandShown)) + ''});
+    } else if (operation === '%') {
+      if (this.state.operator === '*' || this.state.operator === '/') {
+        this.setState({operandShown: ((+this.state.operandShown) / 100) + ''})
+      } else if (this.state.operator === '+' || this.state.operator === '-') {
+        this.setState({operandShown: ((+this.state.operandShown) / 100 * this.state.operandRemembered) + ''})
+      } else {
+        this.setState({operandShown: '0'});
+      };
     };
   }
-/*
-  pushPercent() {
-    if (this.state.operandRemembered === '0') {
-      this.setState({operandShown: '0'});
-    } else if (this.state.operandRemembered !== '0') {
-      if (this.state.operator === '+') {
-        this.setState({operandShown: })
-      }
-    };
-  }
-*/
 
-  togglePositiveNegative() {
+  togglePositiveNegative() { 
     if (this.state.operandShown.startsWith('-') && this.state.operandShown !== '0') {
-      this.setState({operandShown: this.state.operandShown.slice(1)});
+      this.setState({operandShown: this.state.operandShown.slice(1), operandToggle: false});
     } else if (this.state.operandShown !== '0') {
-      this.setState({operandShown: '-' + this.state.operandShown});
+      this.setState({operandShown: '-' + this.state.operandShown, operandToggle: false});
     };
   }
 
@@ -131,7 +131,7 @@ class Application extends Component {
         </div>
         
         <div class='row'>
-          <button onClick={() => this.pushPercent()}>%</button>
+          <button onClick={() => this.pushOperation('%')}>%</button>
           <button onClick={() => this.lastOperandDelete()}>CE</button>
           <button onClick={() => this.resetExpression()}>C</button>
           <button onClick={() => this.lastDigitDelete()}>DEL</button>
