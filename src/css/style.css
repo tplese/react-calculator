@@ -17,9 +17,9 @@ button {
 }
 
 .operands {
-  width: 100%;
+  width: 95%;
   margin: 0;
-  padding: 0;
+  padding: 0 5% 0 0;
   display: inline-block;
   background-color: #666;
   
