@@ -127,7 +127,7 @@ class Application extends Component {
 
   render() {
     return (
-      <div>
+      <div id='application'>
         <div id='expression' class='row'>
           <div id='operandRemembered' class='operands'>
             {(this.state.operator !== '=') ?

@@ -1,3 +1,9 @@
+#application {
+  width: 40vw;
+  margin: 0 auto;
+  margin-top: 5vw;
+}
+
 button {
   height: 4rem;
   width: 10vw;
@@ -7,7 +13,6 @@ button {
 
 .row {
   height: 4rem;
-  width: 40vw;
   margin: 0;
   padding: 0;
 }
